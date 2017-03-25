@@ -1,0 +1,2 @@
+# BaseProject
+这是一个自己封装的一个简单的BaseActivity和BaseFragment
