@@ -14,7 +14,7 @@ public class ActivityStackManager {
     private ActivityStackManager() {
     }
 
-    public synchronized static ActivityStackManager getActivityStackManager() {
+    public synchronized static ActivityStackManager getInstance() {
         if (instance == null) {
             instance = new ActivityStackManager();
         }
