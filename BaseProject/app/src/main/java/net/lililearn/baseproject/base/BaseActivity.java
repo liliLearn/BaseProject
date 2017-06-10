@@ -9,29 +9,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 
 import net.lililearn.baseproject.R;
 import net.lililearn.baseproject.utils.ActivityStackManager;
-import net.lililearn.baseproject.utils.ScreenManager;
 
 import java.util.ArrayList;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
-    private static final String TAG = "BaseActivity";
-    /**
-     * 是否沉浸状态栏
-     **/
-    private boolean isStatusBar = true;
-    /**
-     * 是否允许全屏
-     **/
-    private boolean isFullScreen = true;
-    /**
-     * 是否禁止旋转屏幕
-     **/
-    private boolean isScreenRoate = false;
+    private static final String TAG = BaseActivity.class.getSimpleName();
 
     /**
      * context
@@ -60,7 +46,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected abstract void setEvent();
 
-    private ScreenManager screenManager;
     private ArrayList<BaseFragment> fragments;// back fragment list.
     private BaseFragment fragment;// current fragment.
 
@@ -73,10 +58,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         setEvent();
         ctx = this;
         ActivityStackManager.getInstance().pushActivity(this);
-        screenManager = ScreenManager.getInstance();
-        screenManager.setStatusBar(isStatusBar, this);
-//        screenManager.setScreenRoate(isScreenRoate, this);
-        screenManager.setFullScreen(isFullScreen, this);
     }
 
     public ArrayList<BaseFragment> getFragments() {
@@ -195,7 +176,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void removeContent() {
         removePrevious();
         setFragment();
-
         getSupportFragmentManager().popBackStackImmediate();
     }
 
@@ -233,33 +213,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         System.exit(0);//system exit.
     }
 
-    /**
-     * [是否设置沉浸状态栏]
-     *
-     * @param statusBar
-     */
-    public void setStatusBar(boolean statusBar) {
-        isStatusBar = statusBar;
-    }
-
-    /**
-     * [是否设置全屏]
-     *
-     * @param fullScreen
-     */
-    public void setFullScreen(boolean fullScreen) {
-        isFullScreen = fullScreen;
-    }
-
-    /**
-     * [是否设置旋转屏幕]
-     *
-     * @param screenRoate
-     */
-    public void setScreenRoate(boolean screenRoate) {
-        isScreenRoate = screenRoate;
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -295,18 +248,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         Log.i(TAG, "--->onDestroy()");
         ActivityStackManager.getInstance().popActivity(this);
-    }
-
-    //返回键返回事件
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (KeyEvent.KEYCODE_BACK == keyCode) {
-            if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
-                finish();
-                return true;
-            }
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }
 

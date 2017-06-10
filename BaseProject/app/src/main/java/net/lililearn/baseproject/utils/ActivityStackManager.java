@@ -1,6 +1,7 @@
 package net.lililearn.baseproject.utils;
 
 import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 
 import java.util.Stack;
 
@@ -8,7 +9,7 @@ import java.util.Stack;
  * Activity管理类
  */
 public class ActivityStackManager {
-    private static Stack<Activity> activityStack;
+    private static Stack<AppCompatActivity> activityStack;
     private static ActivityStackManager instance;
 
     private ActivityStackManager() {
@@ -43,9 +44,9 @@ public class ActivityStackManager {
      *
      * @return
      */
-    public Activity currentActivity() {
+    public AppCompatActivity currentActivity() {
         if (activityStack == null || activityStack.isEmpty()) return null;
-        Activity activity = (Activity) activityStack.lastElement();
+        AppCompatActivity activity = (AppCompatActivity) activityStack.lastElement();
         return activity;
     }
 
@@ -55,9 +56,9 @@ public class ActivityStackManager {
      *
      * @return
      */
-    public Activity firstActivity() {
+    public AppCompatActivity firstActivity() {
         if (activityStack == null || activityStack.isEmpty()) return null;
-        Activity activity = (Activity) activityStack.firstElement();
+        AppCompatActivity activity = (AppCompatActivity) activityStack.firstElement();
         return activity;
     }
 
@@ -68,9 +69,9 @@ public class ActivityStackManager {
      *
      * @param activity
      */
-    public void pushActivity(Activity activity) {
+    public void pushActivity(AppCompatActivity activity) {
         if (activityStack == null) {
-            activityStack = new Stack<Activity>();
+            activityStack = new Stack<AppCompatActivity>();
         }
         activityStack.add(activity);
     }

@@ -18,7 +18,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        setFullScreen(false);
         removeAllStackFragment();
         mHomeFragment = new HomeFragment();
         replaceContent(mHomeFragment, false);
